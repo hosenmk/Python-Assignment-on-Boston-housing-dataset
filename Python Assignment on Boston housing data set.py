@@ -251,7 +251,7 @@ plt.legend(loc="lower right")
 plt.show()
 
 
-
+#Support Vector Machine
 
 
 
