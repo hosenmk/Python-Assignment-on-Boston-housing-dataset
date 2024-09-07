@@ -236,6 +236,28 @@ auc3 = roc_auc_score(y_test, probsRF)
 print('RF AUC3:', auc3)
 
 
+fpr3, tpr3, thresholds3 = roc_curve(y_test, probsRF)
+plt.figure()
+lw = 2
+plt.plot([0, 1], [0, 1], color='red', lw=lw, linestyle='_')
+plt.plot(fpr3, tpr3, color='green', lw=lw, label,='RF(AUC = %0.4f)' % auc3)
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+
+#plt.title('Receiver operating charactertitis')
+plt.legend(loc="lower right")
+plt.show()
+
+
+
+
+
+
+
+
+
 
 
 
