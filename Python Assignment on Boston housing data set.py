@@ -193,10 +193,47 @@ plt.legend(log="lower right")
 plt.show()
 
 #Random Forest
+from sklearn.enseble import RandomForestClassifier
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(x_train, y_train)
+y_pred = rf.predict(x_test)
+print('Random Forest')
+
+#Confusion Matrix
+cnf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion matrix")
+print(cnf_matrix)
+
+#ROC Curve
+fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+auc = roc_auc_score(y_test, y_pred)
+print("AUC:", auc)
+
+#Other metrix
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+ppv = tp / (tp + fp)
+print("Predictive Value Negative:", ppv)
+
+npv = tn / (tn + fn)
+print("Predictive Value Negative:", npv)
+
+accuracy = (tp + tn) / (tp + fp + fn + tn)
+print("Accuracy:", accuracy)
+
+sensitivity = tp / (tp + fn)
+print("Sensitivity:", sensitivity)
+
+specificity = tn / (tn + fp)
+print("Specificity:", specificity)
 
 
 
-
+RFclf.fit(x_train, y_train)
+probsFR = RFclf.predict_proba(x_test)
+probsRF = probsRF[:, 1]
+from sklearn.metrics import roc_curve, roc_auc_score
+auc3 = roc_auc_score(y_test, probsRF)
+print('RF AUC3:', auc3)
 
 
 
