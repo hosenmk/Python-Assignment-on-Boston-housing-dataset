@@ -252,13 +252,59 @@ plt.show()
 
 
 #Support Vector Machine
+from sklearn.svm import SVC
+SVclf = SVC(kernel='linear')
+SVclf.fit(x_train, y_train)
+y_pred=SVclf.predict(x_test)
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+print(classification_report(y_test, y_pred))
 
+cm = confusion_matrix(y_test, y_pred)
+print(classification_report(y_test, y_pred))
+print("Accuracy: ", accuracy_score(y_test, y_pred))
+print("Precision: ", precision_score(y_test, y_pred))
 
+specificity = cm[0,0] / (cm[0,0]+cm[0,1])
+print('Specificity : ', specificity)
 
+sensivity = cm[1,1] / (cm[1,0]+cm[1,1])
+print('Sensivity : ', sensivity)
 
+probsSV = SVclf.fit(x_train, y_train).decision_function(x_test)
+from sklearn.metrix import roc_curve, roc_auc_score
+auc4 = roc_auc_score(y_test, probsSV)
+print('SVM AUC4:', auc4)
 
+fpr4, tpr4, thresholds4 = roc_curve(y_test, probsSV)
+plt.figure()
+lw = 2
 
+plt.plot(fpr2, tpr2, color='green', lw=lw, label='SVM(AUC = %0.4f)' % auc4)
+plt.plot([0, 1], [0, 1], color='red', lw=lw, linestyle='_')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+#plt.title('Receiver operating characteristic')
+plt.legend(loc="lower right")
+plt.show()
 
+#compare model performance
+models = {'logisticRegression': logreg,
+         'DecisionTree': dt,
+         'RandomForest': rf,
+         'SVM': svm}
+
+test_accuracy = []
+for name, model in models.items():
+    y_pred = model.predict(x_test)
+    acc = accuracy_score(y_test, y_pred)
+    test_accuracy.append(name, acc)
+
+test.accuracy.sort(key=lambda x: x[1], reverse=True)
+
+print('Best model baed on test set accuracy:')
+print(test_accuracy[0][0] + ":", test_accuracy[0][]1)
 
 
 
